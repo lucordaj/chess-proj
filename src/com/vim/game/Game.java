@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 public class Game {
 
+    // List of chars used to match the user input to a usable value
     List<Character> chars = List.of('a', 'b', 'c', 'd', 'e', 'f',  'g', 'h');
     private boolean whitesTurn;
     private boolean playing;
@@ -24,17 +25,32 @@ public class Game {
 
         Scanner scanner = new Scanner(System.in);
 
+        byte[] currentCoords;
+        byte[] destinationCoords;
+
         playing = true;
 
         while (playing) {
 
             String[] input = obtainInput(scanner);
 
-            System.out.print(Arrays.toString(calculateInput(input[0])));
-            System.out.print(Arrays.toString(calculateInput(input[1])));
+            currentCoords = calculateInput(input[0]);
+            destinationCoords = calculateInput(input[1]);
 
+            if (!validateColour(currentCoords)){
+                System.out.println("Move a piece of your own colour.");
+            } else {
+
+            validateColour(currentCoords);
+            board.movePiece(board.findASquare(currentCoords), board.findASquare(destinationCoords));
+
+
+
+
+            }
         }
-    }
+
+    }   // Typical scanner based input getter from console.
         private String[] obtainInput(Scanner scanner){
 
             while (true) {
@@ -48,6 +64,8 @@ public class Game {
 
                         return input.split(",");
 
+                    } else {
+                        System.out.println("Invalid input.");
                     }
                 } catch (Exception e) {
 
@@ -85,6 +103,17 @@ public class Game {
                     } else {return false;}
                 } else {return false;}
             } else {return false;}
+        }
+
+        // Check team so only white can move white etc. If the piece's colour
+        // on the starting coord is the same as the current turn's colour, then return true
+        private boolean validateColour(byte[] coords){
+
+            if (board.findASquare(coords).getColour() == whitesTurn){
+                return true;
+            } else{
+                return false;
+            }
         }
     }
 

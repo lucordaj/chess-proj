@@ -22,8 +22,11 @@ public class Board {
     // Function to delete piece on square and move it to another. Returns a boolean
     // result to indicate if it was successful or not.
     public boolean movePiece(Square currentSquare, Square destinationSquare){
-       return false;
+
+
+        return false;
     }
+
     // Creates an 8x8 chess board in an array of Squares.
     private void generateBoard() {
 
@@ -84,6 +87,12 @@ public class Board {
             }
         }
     }
+
+    // Taking an array of bytes (always only 2 elements in array)
+    public Square findASquare(byte[] coords){
+        return chessBoard[coords[0]][coords[1]];
+    }
+
     // Displays these pieces and the board in the console. Displays accurately in
     // current Windows 10 IntelliJ build, risk of not displaying properly otherwise
     public void displayBoard() {
