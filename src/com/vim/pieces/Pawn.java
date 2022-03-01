@@ -13,21 +13,31 @@ public class Pawn extends Piece{
     }
 
     @Override
-    public void calculatePossibleMoves(Board board, Square currentSquare, Square desiredSquare) {
+    public void calculatePossibleMoves(Board board, Square currentSquare) {
 
+        Square leftDiagonalSquare = new Square((byte) 0, (byte) 0);
+        Square rightDiagonalSquare = new Square((byte) 0, (byte) 0);
 
         if (timesMoved == 0){
-            this.possibleMoves.add(new byte[currentSquare.getRow() + 2][currentSquare.getCol()]);
+            this.possibleMoves.add(new byte[]{(byte) (currentSquare.getRow() + 2), currentSquare.getCol()});
         }
-            this.possibleMoves.add(new byte[currentSquare.getRow() + 1][currentSquare.getCol()]);
+            this.possibleMoves.add(new byte[]{(byte) (currentSquare.getRow() + 1), currentSquare.getCol()});
 
-        Square leftDiagonalSquare = board.chessBoard[currentSquare.getRow() - 1][currentSquare.getCol() - 1];
-        Square rightDiagonalSquare = board.chessBoard[currentSquare.getRow() - 1][currentSquare.getCol() + 1];
+        // If the column is on the edge of the board, obviously you cannot take a piece that isn't
+        // on the board, so must ensure a square that is out of bounds doesn't get created.
+        if (currentSquare.getCol() == 7){
+            leftDiagonalSquare = board.chessBoard[currentSquare.getRow() - 1][currentSquare.getCol() - 1];
+        } else if (currentSquare.getCol() == 0){
+            rightDiagonalSquare = board.chessBoard[currentSquare.getRow() - 1][currentSquare.getCol() + 1];
+        } else {
+            leftDiagonalSquare = board.chessBoard[currentSquare.getRow() - 1][currentSquare.getCol() - 1];
+            rightDiagonalSquare = board.chessBoard[currentSquare.getRow() - 1][currentSquare.getCol() + 1];
+        }
 
         if (leftDiagonalSquare.isSquareOccupied() && leftDiagonalSquare.getCurrentPiece().getColour() != this.colour){
-            this.possibleMoves.add(new byte[currentSquare.getRow() - 1][currentSquare.getCol() - 1]);
+            this.possibleMoves.add(new byte[]{(byte) (currentSquare.getRow() - 1), (byte) (currentSquare.getCol() - 1)});
         } else if (rightDiagonalSquare.isSquareOccupied() && rightDiagonalSquare.getCurrentPiece().getColour() != this.colour){
-            this.possibleMoves.add(new byte[currentSquare.getRow() - 1][currentSquare.getCol() + 1]);
+            this.possibleMoves.add(new byte[]{(byte) (currentSquare.getRow() - 1), (byte) (currentSquare.getCol() + 1)});
         }
 
     }

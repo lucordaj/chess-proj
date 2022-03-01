@@ -9,7 +9,7 @@ public class Square {
     // Colour is determined by True (white) and False (black)
     private boolean colour;
     private char colourGraphic;
-    private byte row;
+    private final byte row;
     private final byte col;
 
     public Square(byte row, byte col){
@@ -30,7 +30,7 @@ public class Square {
         // By adding together the position values of each square, each black square will always
         // be an odd number when both values are combined, and each white square even.
 
-        byte tempVar = this.row += this.col;
+        byte tempVar = (byte) (this.row + this.col);
         this.colour = tempVar % 2 == 0;
     }
 

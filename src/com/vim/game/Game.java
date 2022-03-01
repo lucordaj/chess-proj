@@ -1,8 +1,8 @@
 package com.vim.game;
 import com.vim.board.Board;
+import com.vim.board.Square;
 import com.vim.players.*;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -37,12 +37,15 @@ public class Game {
             currentCoords = calculateInput(input[0]);
             destinationCoords = calculateInput(input[1]);
 
+            Square currentSquare = board.chessBoard[currentCoords[0]][currentCoords[1]];
+
             if (!validateColour(currentCoords)){
                 System.out.println("Move a piece of your own colour.");
             } else {
 
-            validateColour(currentCoords);
-            board.movePiece(board.findASquare(currentCoords), board.findASquare(destinationCoords));
+            currentSquare.getCurrentPiece().calculatePossibleMoves(board, currentSquare);
+            System.out.println(currentSquare.getCurrentPiece().getPossibleMoves().toString());
+
 
             }
         }

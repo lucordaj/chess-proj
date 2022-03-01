@@ -4,7 +4,7 @@ package com.vim.pieces;
 import com.vim.board.Board;
 import com.vim.board.Square;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public abstract class Piece {
 
@@ -13,7 +13,7 @@ public abstract class Piece {
     protected final byte value;
     protected final char symbol;
     protected final boolean colour;
-    protected List<byte[][]> possibleMoves;
+    protected ArrayList<byte[]> possibleMoves;
 
 
     protected Piece(boolean colour, String fName, char sName, byte value, char symbol){
@@ -21,10 +21,11 @@ public abstract class Piece {
         // can become null.
         this.fName = fName; this.sName = sName; this.value = value; this.symbol = symbol ;
         this.colour = colour;
+        this.possibleMoves = new ArrayList<>();
     }
 
     // Abstract method as each piece's movement will be different.
-    public abstract void calculatePossibleMoves(Board board, Square currentSquare, Square desiredSquare);
+    public abstract void calculatePossibleMoves(Board board, Square currentSquare);
 
     public boolean getColour(){ return colour;}
 
@@ -44,7 +45,7 @@ public abstract class Piece {
         return symbol;
     }
 
-    public List<byte[][]> getPossibleMoves(){return possibleMoves;}
+    public ArrayList<byte[]> getPossibleMoves(){return possibleMoves;}
 
 
 }
