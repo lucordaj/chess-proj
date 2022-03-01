@@ -44,9 +44,6 @@ public class Game {
             validateColour(currentCoords);
             board.movePiece(board.findASquare(currentCoords), board.findASquare(destinationCoords));
 
-
-
-
             }
         }
 

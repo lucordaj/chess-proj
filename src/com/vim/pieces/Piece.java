@@ -1,14 +1,19 @@
 package com.vim.pieces;
 
 
+import com.vim.board.Board;
+import com.vim.board.Square;
 
-public class Piece {
+import java.util.List;
 
-    private final String fName;
-    private final char sName;
-    private final byte value;
-    private final char symbol;
-    private final boolean colour;
+public abstract class Piece {
+
+    protected final String fName;
+    protected final char sName;
+    protected final byte value;
+    protected final char symbol;
+    protected final boolean colour;
+    protected List<byte[][]> possibleMoves;
 
 
     protected Piece(boolean colour, String fName, char sName, byte value, char symbol){
@@ -17,6 +22,9 @@ public class Piece {
         this.fName = fName; this.sName = sName; this.value = value; this.symbol = symbol ;
         this.colour = colour;
     }
+
+    // Abstract method as each piece's movement will be different.
+    public abstract void calculatePossibleMoves(Board board, Square currentSquare, Square desiredSquare);
 
     public boolean getColour(){ return colour;}
 
@@ -36,11 +44,7 @@ public class Piece {
         return symbol;
     }
 
-
-
-
-
-
+    public List<byte[][]> getPossibleMoves(){return possibleMoves;}
 
 
 }

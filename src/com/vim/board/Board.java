@@ -23,7 +23,7 @@ public class Board {
     // result to indicate if it was successful or not.
     public boolean movePiece(Square currentSquare, Square destinationSquare){
 
-
+        // if the move desired is in "possible moves" for the piece, then its ok
         return false;
     }
 
