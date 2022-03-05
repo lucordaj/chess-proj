@@ -18,13 +18,6 @@ public class Square {
 
     }
 
-    public Piece movePiece(){
-        // The idea is that to move a piece from a square, you delete the piece from the current
-        // square it is positioned and place it, if legal, onto the desired square.
-
-        return null;
-    }
-
     private void determineSquareColour(){
 
         // By adding together the position values of each square, each black square will always
@@ -39,6 +32,7 @@ public class Square {
         this.isOccupied = true;
     }
 
+    public void removeCurrentPiece(){this.currentPiece = null;}
     public boolean isSquareOccupied(){return this.isOccupied;}
     public Piece getCurrentPiece(){return this.currentPiece;}
     public boolean getColour(){return this.colour;}

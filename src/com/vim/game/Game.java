@@ -3,6 +3,7 @@ import com.vim.board.Board;
 import com.vim.board.Square;
 import com.vim.players.*;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -44,9 +45,9 @@ public class Game {
             } else {
 
             currentSquare.getCurrentPiece().calculatePossibleMoves(board, currentSquare);
-            System.out.println(currentSquare.getCurrentPiece().getPossibleMoves().toString());
+            board.movePiece(currentSquare, destinationCoords);
 
-
+                board.displayBoard();
             }
         }
 
@@ -113,6 +114,14 @@ public class Game {
                 return true;
             } else{
                 return false;
+            }
+        }
+
+        // A method to display available moves that are calculated for
+        // the desired piece.
+        private void displayAvailableMoves(Square currentSquare){
+            for (byte[] b : currentSquare.getCurrentPiece().getPossibleMoves()) {
+                System.out.println(Arrays.toString(b));
             }
         }
     }
