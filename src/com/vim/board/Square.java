@@ -31,8 +31,7 @@ public class Square {
         this.currentPiece = piece;
         this.isOccupied = true;
     }
-
-    public void removeCurrentPiece(){this.currentPiece = null;}
+    public void removeCurrentPiece(){this.currentPiece = null; this.isOccupied = false;}
     public boolean isSquareOccupied(){return this.isOccupied;}
     public Piece getCurrentPiece(){return this.currentPiece;}
     public boolean getColour(){return this.colour;}

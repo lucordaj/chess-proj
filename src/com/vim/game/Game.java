@@ -13,8 +13,8 @@ public class Game {
     List<Character> chars = List.of('a', 'b', 'c', 'd', 'e', 'f',  'g', 'h');
     private boolean whitesTurn;
     private boolean playing;
-    private White white;
-    private Black black;
+    public static White white;
+    public static Black black;
     private Board board;
 
     public Game() {

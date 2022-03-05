@@ -3,6 +3,10 @@ package com.vim.board;
 import com.vim.pieces.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+
+import static com.vim.game.Game.white;
+import static com.vim.game.Game.black;
 
 public class Board {
 
@@ -21,26 +25,24 @@ public class Board {
 
     // Function to delete piece on square and move it to another. Returns a boolean
     // result to indicate if it was successful or not.
-    public boolean movePiece(Square currentSquare, byte[] desiredMove){
+    public void movePiece(Square currentSquare, byte[] desiredMove){
 
         Square desiredSquare = chessBoard[desiredMove[0]][desiredMove[1]];
-        Piece capturedPiece;
 
-        if (currentSquare.getCurrentPiece().getPossibleMoves().contains(desiredMove)){
+        if (currentSquare.getCurrentPiece().getPossibleMoves().stream().anyMatch(a -> Arrays.equals(a, desiredMove))){
             if (desiredSquare.isSquareOccupied()){
                 if (desiredSquare.getCurrentPiece().getColour()){
-                    // add the piece to white's captured pieces
+                    white.pieceTaken(desiredSquare.getCurrentPiece());
                 } else {
-                    // add the piece to black's captured pieces
+                    black.pieceTaken(desiredSquare.getCurrentPiece());
                 }
             }
                 chessBoard[desiredMove[0]][desiredMove[1]].setCurrentPiece(currentSquare.getCurrentPiece());
                 chessBoard[currentSquare.getRow()][currentSquare.getCol()].removeCurrentPiece();
+
         } else {
             System.out.println("Invalid move.");
         }
-        // if the move desired is in "possible moves" for the piece, then its ok
-        return false;
     }
 
     // Creates an 8x8 chess board in an array of Squares.
