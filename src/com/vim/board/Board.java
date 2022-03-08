@@ -25,7 +25,7 @@ public class Board {
 
     // Function to delete piece on square and move it to another. Returns a boolean
     // result to indicate if it was successful or not.
-    public void movePiece(Square currentSquare, byte[] desiredMove){
+    public boolean movePiece(Square currentSquare, byte[] desiredMove){
 
         Square desiredSquare = chessBoard[desiredMove[0]][desiredMove[1]];
 
@@ -37,11 +37,14 @@ public class Board {
                     black.pieceTaken(desiredSquare.getCurrentPiece());
                 }
             }
+                chessBoard[currentSquare.getRow()][currentSquare.getCol()].getCurrentPiece().firstMove = false;
                 chessBoard[desiredMove[0]][desiredMove[1]].setCurrentPiece(currentSquare.getCurrentPiece());
                 chessBoard[currentSquare.getRow()][currentSquare.getCol()].removeCurrentPiece();
 
+                return true;
         } else {
             System.out.println("Invalid move.");
+            return false;
         }
     }
 

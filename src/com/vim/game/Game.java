@@ -23,6 +23,7 @@ public class Game {
 
         white = new White(board.whitePieces);
         black = new Black(board.blackPieces);
+        whitesTurn = true;
 
         Scanner scanner = new Scanner(System.in);
 
@@ -40,23 +41,37 @@ public class Game {
 
             Square currentSquare = board.chessBoard[currentCoords[0]][currentCoords[1]];
 
-            if (!validateColour(currentCoords)){
-                System.out.println("Move a piece of your own colour.");
+            if (!currentSquare.isSquareOccupied()){
+                clearConsole();
+                System.out.println("Square has no piece.");
             } else {
+               if (!validateColour(currentCoords)){
+                   clearConsole();
+                   System.out.println("Move a piece of your own colour.");
+               } else {
+                    clearConsole();
+                   currentSquare.getCurrentPiece().calculatePossibleMoves(board, currentSquare);
+                   if (board.movePiece(currentSquare, destinationCoords)){
+                       whitesTurn = !whitesTurn;
+                   }
 
-            currentSquare.getCurrentPiece().calculatePossibleMoves(board, currentSquare);
-            board.movePiece(currentSquare, destinationCoords);
+               }
+            }
 
-                board.displayBoard();
+            board.displayBoard();
             }
         }
 
-    }   // Typical scanner based input getter from console.
+         // Typical scanner based input getter from console.
         private String[] obtainInput(Scanner scanner){
 
             while (true) {
                 try {
-
+                    if (whitesTurn){
+                        System.out.print("(WHITE) ");
+                    } else {
+                        System.out.print("(BLACK) ");
+                    }
                     System.out.println("\033[3mExample move: h2,h4\033[3m");
                     System.out.print("Enter move ->");
                     String input = scanner.nextLine();
@@ -66,12 +81,14 @@ public class Game {
                         return input.split(",");
 
                     } else {
+                        clearConsole();
                         System.out.println("Invalid input.");
+                        board.displayBoard();
                     }
                 } catch (Exception e) {
-
+                    clearConsole();
                     System.out.println("Enter a valid input.");
-
+                    board.displayBoard();
                 }
 
             }
@@ -110,11 +127,7 @@ public class Game {
         // on the starting coord is the same as the current turn's colour, then return true
         private boolean validateColour(byte[] coords){
 
-            if (board.findASquare(coords).getColour() == whitesTurn){
-                return true;
-            } else{
-                return false;
-            }
+            return board.findASquare(coords).getCurrentPiece().getColour() == whitesTurn;
         }
 
         // A method to display available moves that are calculated for
@@ -122,6 +135,12 @@ public class Game {
         private void displayAvailableMoves(Square currentSquare){
             for (byte[] b : currentSquare.getCurrentPiece().getPossibleMoves()) {
                 System.out.println(Arrays.toString(b));
+            }
+        }
+
+        private void clearConsole(){
+            for (int i = 0; i <=10; i++){
+                System.out.println();
             }
         }
     }

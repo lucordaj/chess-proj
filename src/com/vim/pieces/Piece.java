@@ -13,6 +13,7 @@ public abstract class Piece {
     protected final byte value;
     protected final char symbol;
     protected final boolean colour;
+    public boolean firstMove = true;
     protected ArrayList<byte[]> possibleMoves;
 
 

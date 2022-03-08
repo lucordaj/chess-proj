@@ -5,8 +5,6 @@ import com.vim.board.Square;
 
 public class Pawn extends Piece{
 
-    public byte timesMoved;
-
     public Pawn(boolean colour, String fName, char sName, byte value, char symbol) {
         super(colour, fName, sName, value, symbol);
 
@@ -22,18 +20,25 @@ public class Pawn extends Piece{
         Square leftDiagonalSquare = new Square((byte) 0, (byte) 0);
         Square rightDiagonalSquare = new Square((byte) 0, (byte) 0);
 
-        // If the pawn hasn't moved yet, it can move 2 squares. If its a white pawn, subtract,
-        // if black pawn, add to the row. Using ternary operators to decide piece colour
-        if (timesMoved == 0){
-            move = (this.colour) ? new byte[]{(byte) (currentSquare.getRow() - 2), currentSquare.getCol()}
-                    : new byte[]{(byte) (currentSquare.getRow() + 2), currentSquare.getCol()};
-            possibleMoves.add(move);
+        // Two separate if blocks for if the piece is black or white.
+
+        if (this.colour) {
+            if (firstMove && !board.chessBoard[currentSquare.getRow() - 2][currentSquare.getCol()].isSquareOccupied()){
+                possibleMoves.add(new byte[]{(byte) (currentSquare.getRow() - 2), currentSquare.getCol()});
+            }
+            if (!board.chessBoard[currentSquare.getRow() - 1][currentSquare.getCol()].isSquareOccupied()){
+                possibleMoves.add(new byte[]{(byte) (currentSquare.getRow() - 1), currentSquare.getCol()});
+            }
+
         }
-
-            move = (this.colour) ? new byte[]{(byte) (currentSquare.getRow() - 1), currentSquare.getCol()}
-                    : new byte[]{(byte) (currentSquare.getRow() + 1), currentSquare.getCol()};
-            possibleMoves.add(move);
-
+        if (!this.colour){
+            if (firstMove && !board.chessBoard[currentSquare.getRow() + 2][currentSquare.getCol()].isSquareOccupied()){
+                possibleMoves.add(new byte[]{(byte) (currentSquare.getRow() + 2), currentSquare.getCol()});
+            }
+            if (!board.chessBoard[currentSquare.getRow() + 1][currentSquare.getCol()].isSquareOccupied()){
+                possibleMoves.add(new byte[]{(byte) (currentSquare.getRow() + 1), currentSquare.getCol()});
+            }
+        }
 
         // If the column is on the edge of the board, obviously you cannot take a piece that isn't
         // on the board, so must ensure a square that is out of bounds doesn't get created.
@@ -62,5 +67,17 @@ public class Pawn extends Piece{
     }
 
 }
+// Previous algorithm
+ //if (firstMove){
+ //        if (this.colour && board.chessBoard[currentSquare.getRow()] - [currentSquare.getCol()])
+ //        move = (this.colour) ? new byte[]{(byte) (currentSquare.getRow() - 2), currentSquare.getCol()}
+ //        : new byte[]{(byte) (currentSquare.getRow() + 2), currentSquare.getCol()};
+ //        possibleMoves.add(move);
+ //        }
+
+ //        move = (this.colour) ? new byte[]{(byte) (currentSquare.getRow() - 1), currentSquare.getCol()}
+ //        : new byte[]{(byte) (currentSquare.getRow() + 1), currentSquare.getCol()};
+ //        possibleMoves.add(move);
+
 
 
