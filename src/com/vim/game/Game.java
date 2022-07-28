@@ -1,5 +1,6 @@
 package com.vim.game;
 import com.vim.board.Board;
+import com.vim.board.ConsoleColors;
 import com.vim.board.Square;
 import com.vim.players.*;
 
@@ -10,7 +11,7 @@ import java.util.Scanner;
 public class Game {
 
     // List of chars used to match the user input to a usable value
-    List<Character> chars = List.of('a', 'b', 'c', 'd', 'e', 'f',  'g', 'h');
+    static List<Character> chars = List.of('a', 'b', 'c', 'd', 'e', 'f',  'g', 'h');
     private boolean whitesTurn;
     private boolean playing;
     public static White white;
@@ -72,6 +73,8 @@ public class Game {
                     } else {
                         System.out.print("(BLACK) ");
                     }
+
+
                     System.out.println("\033[3mExample move: h2,h4\033[3m");
                     System.out.print("Enter move ->");
                     String input = scanner.nextLine();

@@ -1,5 +1,6 @@
 package com.vim.board;
 
+import com.vim.game.Game;
 import com.vim.pieces.*;
 
 import java.util.ArrayList;
@@ -118,7 +119,11 @@ public class Board {
     // current Windows 10 IntelliJ build, risk of not displaying properly otherwise
     public void displayBoard() {
 
+        byte tempYAxis = 9;
+        byte tempXAxis = 0;
+
         for (byte row = 0; row <= 7; row++) {
+
             for (byte col = 0; col <= 7; col++) {
 
                 Square currentSquare = chessBoard[row][col];
@@ -126,28 +131,33 @@ public class Board {
                 if (currentSquare.isSquareOccupied()) {
                     Piece currentPiece = chessBoard[row][col].getCurrentPiece();
 
+                    // If the current piece's colour is true (white) or else (black). Swapping around the console colours,
+                    // with the background colour first, allows for the piece to have the bolder colour.
                     if (currentPiece.getColour()) {
                         if (currentSquare.getColour()){
-                            System.out.print(ConsoleColors.WHITE_BOLD_BRIGHT + ConsoleColors.CYAN_BACKGROUND_BRIGHT + " " + currentPiece.getSymbol() + " ");
+                            System.out.print(ConsoleColors.WHITE_BACKGROUND + ConsoleColors.WHITE_BOLD_BRIGHT + " " + currentPiece.getsName() + " ");
                         }else{
-                            System.out.print(ConsoleColors.WHITE_BOLD_BRIGHT + ConsoleColors.BLACK_BACKGROUND_BRIGHT + " " + currentPiece.getSymbol() + " ");
+                            System.out.print(ConsoleColors.BLACK_BACKGROUND_BRIGHT + ConsoleColors.WHITE_BOLD_BRIGHT  + " " + currentPiece.getsName() + " ");
                         }
                     } else {
                         if (currentSquare.getColour()){
-                            System.out.print(ConsoleColors.BLACK_BOLD_BRIGHT + ConsoleColors.CYAN_BACKGROUND_BRIGHT + " " + currentPiece.getSymbol() + " ");
+                            System.out.print( ConsoleColors.WHITE_BACKGROUND + ConsoleColors.BLACK_BOLD +" " + currentPiece.getsName() + " ");
                         } else {
-                            System.out.print(ConsoleColors.BLACK_BOLD_BRIGHT + ConsoleColors.BLACK_BACKGROUND_BRIGHT+ " " + currentPiece.getSymbol() + " ");
+                            System.out.print(ConsoleColors.BLACK_BACKGROUND_BRIGHT+ ConsoleColors.BLACK_BOLD + " " + currentPiece.getsName() + " ");
                         }
                     }
                 } else {
                     if (currentSquare.getColour()){
-                        System.out.print(ConsoleColors.CYAN_BACKGROUND + "     ");
+                        System.out.print(ConsoleColors.WHITE_BACKGROUND + "   ");
                     } else{
-                        System.out.print(ConsoleColors.BLACK_BACKGROUND_BRIGHT + "     ");
+                        System.out.print(ConsoleColors.BLACK_BACKGROUND_BRIGHT + "   ");
                     }
                 }
-            }
-            System.out.println(ConsoleColors.RESET);
+            } //  
+            System.out.print(ConsoleColors.RESET + " ");
+            System.out.print(tempYAxis -= 1);
+            System.out.println();
         }
+        System.out.println(" a " + " b " + " c " + " d " + " e " + " f " +" g " + " h ");
     }
 }
